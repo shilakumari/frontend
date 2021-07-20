@@ -33,18 +33,67 @@ Setting up TypeScript
 1)IDE: Visual Studio Code
 2)Installing NodeJS
 	node -v
+  	npm -v
+	 (npm is package manager for node, it comes with nodejs)
+3)Installing the TypeScript compiler
+ (Typescript compiler is a node-module/node package)
+ 	npm install typescript -G //install globally
+		tsc <fileName>
+		tsc --version
   
   
+Introducing type declarations
+1)
+ var fn=function(){
+     return "response";
+ };
+ var fn2 =()=>"response";
+console.log(fn2());
+let a = 5;
+console.log(a);
   
+2)
+All valid primitive type of JS are valid types of TypeScript also.
+	var a:number;
+	a= 5;
+	console.log(a);//5
+
+	var b:boolean= true;
+
+	var c:string= "Hello";
+	var c2:string= 'Hello';
+	console.log(c2);//Hello
+
+3)Undefined and null types
+	var d = undefined;
+	console.log(d);//undefined
+	var e = null;
+	console.log(e);//null  
   
+4)Array declarations 
+	var myArr : number[ ];
+	myArr = [];
+	myArr = [1, 2];
+	myArr.push(3);
+	console.log(myArr);  
+  	console.log(myArr.pop());
+	
+5)Tuple
+	var myTuple : [ number,boolean];
+	myTuple = [1,true];
+  	//myTuple = [2];//Invalid
+	myTuple = [4,true];
+	myTuple = [6,true];
+	myTuple.push(3);
+	myTuple.push(5);
+	myTuple.push(false);
+	console.log(myTuple);//[6, true, 3, 5, false] 
+	console.log(myTuple[0]);//6
+	console.log(myTuple[1]);//true
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+6)Type erasure and TypeScript error behavior  
+	TypeScript feature exist only at development time. After compilation we get pure JavaScript feature.
+	TypeScript comilation is for developer. If TypeScript comipler got error, then it will show error but then also it will create JavaScript file.
+
+
+
