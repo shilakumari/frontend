@@ -1,0 +1,50 @@
+TypeScript:
+	A programming langugae
+	Free & Open-source
+	Developed & maintained by Microsoft
+
+Some problems with JavaScript
+  1)Weak type checking
+  2)Function arguments
+  3)Cann't enforce structure of an object, No concept of template, Object are loosely structured
+  4)Application complexity
+	
+Why JavaScript
+	Browsers support only 
+	
+
+How TypeScript works
+	During development time
+		TypeScript Code--> TypeScriptCompiler--> JavaScript code-->Browser/NodeJS environment
+		We can technically run the TypeScript compilation on browsers too. But it is very inefficient.
+		
+		TypeScript = JavaScript + Some additional feature(like types)
+		TypeScript is superset of JavaScript.
+		
+WebAssembly
+
+TypeScript
+	Makes building these complex apps more manageable.
+	Frameworks like Angular2+ is using it.
+	
+	
+	
+Setting up TypeScript
+1)IDE: Visual Studio Code
+2)Installing NodeJS
+	node -v
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
