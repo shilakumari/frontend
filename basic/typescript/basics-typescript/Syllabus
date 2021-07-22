@@ -9,8 +9,24 @@ Prerequisites
 	Some other OOP language
 	
 The Plan
-	Introduction & Setting up
-	Basic features & types
-	Classes & interfaces
-	Revisiting the development environment
-	Hands on development
+	Introduction
+	Setup
+	Basics
+	Compiler & Configuration Deep Dive
+	Working with Next-gen JS Code
+	Classes & Interfaces
+	Advanced Types & TypeScript features
+	Generics
+	Decorators
+	Time to Practice - Full Project
+	Working with Namespaces & Modules
+	Webpack & TypeScript
+	Third-party Libraries & TypeScript
+	
+	
+Community
+https://academind.com/community/
+	
+WebAssembly
+Progressive App
+Micro UI/Fronend
