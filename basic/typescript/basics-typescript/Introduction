@@ -1,17 +1,27 @@
-TypeScript:
-	A programming langugae
-	Free & Open-source
-	Developed & maintained by Microsoft
-
 Some problems with JavaScript
-  1)Weak type checking
-  2)Function arguments
-  3)Cann't enforce structure of an object, No concept of template, Object are loosely structured
-  4)Application complexity
+1)Weak type checking
+2)Function arguments
+3)Cann't enforce structure of an object, No concept of template, Object are loosely structured
+4)Application complexity
 	
 Why JavaScript
-	Browsers support only 
+	Browsers support only Javascript
+	Browser & NodeJS environment cann't execute type script.
+
+	Strong type checking in TS
+		function add(num1,num2){
+			return num1+num2;}
+		console.log(add('2'+'3'));
 	
+What is TypeScript
+	A programming langugae
+	A tool tsc
+	Free & Open-source
+	Developed & maintained by Microsoft
+	TypeScript=JavaScript+Some additional feature(like types)
+	TypeScript is superset of JavaScript.
+	Makes building complex apps more manageable.
+	Frameworks like Angular2+ is using it.
 
 How TypeScript works
 	During development time
@@ -21,25 +31,14 @@ How TypeScript works
 		TypeScript = JavaScript + Some additional feature(like types)
 		TypeScript is superset of JavaScript.
 		
-WebAssembly
-
-TypeScript
-	Makes building these complex apps more manageable.
-	Frameworks like Angular2+ is using it.
-	
-	
-	
-Setting up TypeScript
-1)IDE: Visual Studio Code
-2)Installing NodeJS
-	node -v
-  	npm -v
-	 (npm is package manager for node, it comes with nodejs)
-3)Installing the TypeScript compiler
- (Typescript compiler is a node-module/node package)
- 	npm install typescript -G //install globally
-		tsc <fileName>
-		tsc --version
+TypeScript Advantages
+	Types
+	Next-gen JavaScript features(Compiled down for older browser)
+	Non-JavaScript features like Interfaces or Generices
+	Meta-programming features like Decorators
+	Rich configuration options
+	Modern tooling that helps even in non-TypeScript projects
+		
   
   
 Introducing type declarations
