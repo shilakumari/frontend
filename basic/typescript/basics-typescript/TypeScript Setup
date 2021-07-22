@@ -49,9 +49,8 @@ function add(num1: number, num2: number) {
 button.addEventListener("click", function() {
   console.log(add(+input1.value, +input2.value));
   alert('Hello Shalu');
-//   resultDiv=document.getElementById("result");
-//   resultDiv.innerHTML=add(input1.value, input2.value);
-
+  //resultDiv=document.getElementById("result");
+  //resultDiv.innerHTML=add(input1.value, input2.value);
 });
 
 
@@ -85,7 +84,7 @@ first.html
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <title>Understanding TypeScript</title>
-    <script src="js-only.js" defer></script>
+    <script src="first-file.js" defer></script>
   </head>
   <body>
     <input type="number" id="num1" placeholder="Number 1" />
