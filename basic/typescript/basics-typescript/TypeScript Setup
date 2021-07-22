@@ -11,16 +11,25 @@ Setting up TypeScript
 		tsc -v
 		tsc --version
 		tsc <fileName>
-    
+ 
+When we make changes in .ts file, need to compile .ts file then reload in browser. 
+	To avoid this reloading, We can also add another tool called "lite-server".
+For that command:
+	npm init
+		(Hit enter)
+	npm install --save-dev lite-server
+	npm start
+	
 4)npm init
-    Create package.json
+	Created package.json
   
-
 5)For running in lite-server
+  npm install --save-dev lite-server
+  	Created package-lock.json
+	Created node-modules
   Inside package.json
   	"scripts": {    "start": "lite-server"},
 	  "devDependencies": {	"lite-server": "^2.6.1" }
-  npm install --save-dev lite-server	
   bs-config.json
   	{
     	 "port": 3000,
@@ -30,7 +39,16 @@ Setting up TypeScript
 	      }
      }
 
-6)
+6)npm start
+
+
+node-modules:
+	This is a huge folder which in this stores all third party packages and their dependencies.
+	And since it is so huge.
+can delete and recreate "node-modules" by running:
+	npm install
+
+7) 
  npm install
   npm start
   npm run		
@@ -96,12 +114,12 @@ first.html
 </html>
 
 
-
 Babel JavaScript compiler
 
 View/Extensions in VSCode
+ We can also install certain extensions/third-party plugins, which changes appearence & behaviour of the editor as -
 	Material Icon Theme
 	ESLint- Code Quality Check Support
 	Path Intellisense- for import
 	Prettier- Code Formatter
-	
+	TSLint
