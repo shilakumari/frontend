@@ -1,0 +1,31 @@
+Watch Mode
+	tsc first.ts -w
+	tsc first.ts -watch
+	  Keep recompiling first.ts, whenever any change happens in first.ts
+	
+  
+Compiling the entire project/Multiple files
+	tsc --init    //created tsconfig.json
+	tsc   //All .ts file compile 
+	tsc -watch    //All .ts file compile autometically whenever makes change
+	
+
+Including & Excluding files
+	In tsconfig.json
+		"exclude":["first.ts","second.ts"]
+		"exclude":["*.dev.ts"]
+		"exclude":["**/*.dev.ts"]
+		"exclude":["node_modules"]
+		
+		"include":["first.ts","second.ts"]
+		"include":["*.dev.ts"]
+		"include":["**/*.dev.ts"]
+		"include":["node_modules"]
+		
+		"files":["first.ts", "second.ts"] //Here we cannot include path
+		
+Setting a compilation target
+ 	In tsconfig.json - 
+	    /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
+	    "target": "es5",                          
+		
