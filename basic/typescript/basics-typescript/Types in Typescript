@@ -1,3 +1,17 @@
+JavaScript is dynamically typed
+	Types may change during run-time
+TypeScript is statically typed
+	Types we defines during development time	
+	
+Type Casing:
+In TypeScript, you work with types like string or number all the times. The core primitive types in TypeScript are all lowercase!
+	Important: It is string and number (etc.), NOT String, Number etc.
+
+Question: What's the difference between JavaScript types (e.g. typeof 'Max' => 'string') and TypeScript types (e.g. const name: string = '...')?
+Answer: JS has no compilation step but at runtime, you can check for certain types (e.g. in if conditions). 
+	TS on the other hand allows you to catch certain errors during development since it checks types during compilation as well.
+
+
 Basic Types
 Number
 	1
@@ -10,77 +24,50 @@ Boolean
 	true
 	false
 
-const number1=10;
-console.log(typeof number1)
-if(typeof number1 !=='number'){
-	throw new Error("Incorrect input");
-}
-
-
-JavaScript is dynamically typed
-	Types may change during run-time
-TypeScript is statically typed
-	Types we defines during development time
-	
-	
-Type Casing:
-In TypeScript, you work with types like string or number all the times.
-Important: It is string and number (etc.), NOT String, Number etc.
-The core primitive types in TypeScript are all lowercase!
-
-
 Type Assignment & Type Inference
 	let number1;
 	let number2:number;
-
 	let number3=5;
 	let number4:number=5;
 		number4='Sachin';//CTE
 		
-Types allow us to detect error early & avoid some runtime errors.
-Types allow you to detect if data of a wrong type is used or pass around, hence you can avoid unexpected runtime errors.
-
-
-Question:
-	Does this code rely on type inference?
-		const age: number = 29;
-Ans:TypeScript would be able to infer the type (and hence you should omit ":number") but here, we actually also have an explicit type assignment.
-
-Question:
-	What's the difference between JavaScript types (e.g. typeof 'Max' => 'string') 
-		and TypeScript types (e.g. const name: string = '...')?
-Answer:JS has no compilation step but at runtime, you can check for certain types (e.g. in if conditions). 
-	TS on the other hand allows you to catch certain errors during development since it checks types during compilation as well.
-
-
-
+	Types allow us to detect error early & avoid some runtime errors.
+	Types allow you to detect if data of a wrong type is used or pass around, hence you can avoid unexpected runtime errors.
+		const number1=10;
+		console.log(typeof number1)
+		if(typeof number1 !=='number'){
+			throw new Error("Incorrect input");
+		}
+	Question: Does 'const age: number = 29;' code rely on type inference? 
+	Ans: TypeScript would be able to infer the type (and hence you should omit ":number") but here, we actually also have an explicit type assignment.
+	
 
 Object Types
 	{age:31}
 
-const person={
+	const person={
 		name:"Shalu";
-		age:30;
+		age:25;
 	}
 
-const person: object={
+	const person: object={
 		name:"Shalu";
-		age:30;
+		age:25;
 	}
 	
-const person: {}={
+	const person: {}={
 		name:"Shalu";
-		age:30;
+		age:25;
 	}
 
-
-const person:{
+	const person:{
 		name:string;
 		age:number
 	}={
 		name:"Shalu";
-		age:30;
+		age:25;
 	}
+
 
 Nested Objects & Types
 	const product = {
@@ -102,4 +89,36 @@ Nested Objects & Types
     		description: string;
   		}
 	}
-  
+  	console.log(product.details);
+		//{title: "Red Carpet", description: "A great carpet - almost brand-new!"}  "_proto_":{.....}
+
+
+Arrays Types
+	Any JavaScript array (heterogeneous or homogeneous). Type can be flexible or strict (regarding the element types)
+	
+	const person = {
+        name: 'Maximilian',
+        age: 30,
+        hobbies: ['Sports', 'Cooking']
+        };
+      
+	let favoriteActivities: string[];
+     	favoriteActivities = ['Sports'];
+
+	let favoriteActivities: any[];
+      	favoriteActivities = ['Sports',1];
+      
+    	for (const hobby of person.hobbies) {
+        	console.log(hobby.toUpperCase());
+        	// console.log(hobby.map()); // !!! ERROR !!!
+      	}
+
+
+Working with Tuples
+	Fixed length array
+	Added by typescript
+	
+	
+	
+	
+
