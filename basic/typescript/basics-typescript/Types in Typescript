@@ -224,4 +224,97 @@ Type Aliases & Object Types
 		This allows you to avoid unnecessary repetition and manage types centrally.
 
 
+undefined
+	It is also a type
+	it can be defind as a function return type also
+	
+	
 
+
+Function Return Types & "void":
+
+	function add(n1: number, n2: number):number {
+  		return n1 + n2;
+	}
+
+	function printResult(num: number): void {
+		console.log('Result: ' + num);
+  		return ;
+	}
+
+	function printResult2(num: number): void {
+  		console.log('Result: ' + num);
+	}
+
+	function printResult3(num: number): undefined {
+		console.log('Result: ' + num);
+		return ;
+	}
+	console.log(printResult3(2));//undefined
+
+
+
+Functions as Types
+	let combineValues:any;
+	combineValues = add;
+	combineValues = 5;
+	//console.log(combineValues(8, 8));//RTE
+
+	let combineValues2:Function;
+	combineValues2 = add;
+	//combineValues2= 5;//CTE
+	//console.log(combineValues2(8, 8));
+
+	let combineValues3:Function;
+	combineValues3 = add;
+	//combineValues3= 5;//CTE
+	combineValues3 = printResult;
+	//console.log(combineValues3(8, 8));// At Runtime, 8, undeifned
+
+	let combineValues4:(a: number, b: number) => number;
+	combineValues4 = add;
+	//combineValues3= 5;//CTE
+	//combineValues4 = printResult;//CTE
+	console.log(combineValues4(8, 8));//16
+
+
+
+Function Types & Callbacks
+	function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  		const result = n1 + n2;
+  		cb(result);
+	}
+	addAndHandle(10, 20, (result) => {});
+	addAndHandle(10, 20, (result) => {console.log(result);});
+ 	addAndHandle(10, 20, (result) => {
+	  console.log(result);
+	  return 11;//no error
+	});
+	Callback functions can return something, even if the argument on which they're passed does NOT expect a returned value.
+ 
+
+
+The "unknown" Type
+	"unknown" Type is more restrictive than "any" type
+	let userName:string;
+	let userInput:unknown
+  	userInput=5;
+  	userInput="Sachin";
+  	userInput=userName;
+  	//userName=userInput;//CTE
+	if(typeof userInput === 'string'){
+	  userName=userInput;//No CTE
+	}
+
+
+The "never" Type
+	function generateError(message: string, code: number): never {
+  		throw { message: message, errorCode: code };
+	}
+	generateError('An error occurred!', 500);
+ 
+	
+Useful Resources & Links
+	https://www.typescriptlang.org/docs/handbook/basic-types.html
+	
+	
