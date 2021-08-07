@@ -79,8 +79,16 @@ Code Quality Options
 	
 
 Debugging with Visual Studio Code
-
-
+Step 1: enable sourcemap
+	"sourceMap": true
+Step 2: place your breakpoints in files
+Step 3: run> start debugging> Chrome
+	Generated .vscode folder included launch.json
+		In launch.json, we can change 'url' also.
+Step 4: then compile all .ts files
+	>tsc
+Step 5: run> start debugging
+	Now started debugging
 
 
 
