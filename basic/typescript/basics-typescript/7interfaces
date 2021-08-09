@@ -4,20 +4,16 @@ Interfaces
 	Interface can be used as a simple Custom type but not as a Complex type.
  interface Person {
   name: string;
-  age: number;
-
   greet(phrase: string): void;
 }
 
 let user1: Person;
 user1 = {
   name: 'Max',
-  age: 30,
   greet(phrase: string) {
     console.log(phrase + ' ' + this.name);
   }
 };
-
 user1.greet('Hi there - I am');
 
 Using Interfaces with Classes
@@ -26,7 +22,7 @@ interface Greetable {
     greet(phrase: string): void;
   }
   
-  class Person implements Greetable {
+class Person implements Greetable {
     name: string;
     age = 30;
     constructor(n: string) {
@@ -42,7 +38,7 @@ interface Greetable {
   console.log(user1);
 
 
-Readonly Interface Properties
+"Readonly" Interface Properties
 	interface Named {
   		readonly name: string;
 	}
@@ -94,7 +90,6 @@ interface AddFn {
   }
   
   let add: AddFn;
-  
   add = (n1: number, n2: number) => {
     return n1 + n2;
   };
