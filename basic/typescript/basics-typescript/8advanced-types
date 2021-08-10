@@ -10,6 +10,23 @@ Nullish Coalescing
 Useful Resources & Links
 
 Intersection Types
+	1. type Admin = {...}
+	   type Employee = {...}
+	   type ElevatedEmployee = Admin & Employee;//Here, ElevatedEmployee will be union of "Admin" and "Employee"
+	   
+	   type UnknownEmployee = Employee | Admin;//Here, ElevatedEmployee will be intersection of "Admin" and "Employee"
+	   function printEmployeeInformation(emp: UnknownEmployee) {
+  	   	console.log(emp.name);
+  	   	//console.log(emp.privileges);//CTE
+  	   	//console.log(emp.startDate);//CTE
+	
+	2. type Combinable = string | number;
+	   type Numeric = number | boolean;
+           type Universal = Combinable & Numeric;//Here, Universal will be intersection of "Combinable" and "Numeric"
+		const u1: Universal = 1; 
+		//const u2: Universal = "Hello";//CTE, Because Universal became "number" type
+
+Example:
 type Admin = {
   name: string;
   privileges: string[];
@@ -19,9 +36,6 @@ type Employee = {
   name: string;
   startDate: Date;
 };
-
-// interface ElevatedEmployee extends Employee, Admin {}
-
 type ElevatedEmployee = Admin & Employee;
 
 const e1: ElevatedEmployee = {
@@ -40,7 +54,7 @@ console.log(typeof universal1);
 
 
 More on Type Guards
- 	Type Guards using typeof
+ 	For "Predefined types (number, string...)" use 'typeof' 
  		type Combinable = string | number;
 		function add(a: Combinable, b: Combinable) {
 			if (typeof a === 'string' || typeof b === 'string') {
@@ -50,7 +64,7 @@ More on Type Guards
 		}
 		typeof works only for JavaScript predefined types but not for custom type like Employee
 		
-	Type Guards using 'in' keyword
+	For Properties use 'in' keyword
 		type UnknownEmployee = Employee | Admin;
 		function printEmployeeInformation(emp: UnknownEmployee) {
   			console.log('Name: ' + emp.name);
@@ -64,29 +78,29 @@ More on Type Guards
 		printEmployeeInformation({ name: 'Manu', privileges: ['Shalu']});
 		printEmployeeInformation({ name: 'Manu2', startDate: new Date() });
 	
-	Type Guards using instanceof keyword (It will not work with Interface)
+	For object use 'instanceof' keyword (It will not work with Interface)
 		class Car {
-  			drive() {
-    			console.log('Driving...');
-  			}
+  		  drive() {
+    		    console.log('Driving a car...');
+  		  }
 		}
 		class Truck {
 		  drive() {
-    		console.log('Driving a truck...');
+    		    console.log('Driving a truck...');
   		  }
 		  loadCargo(amount: number) {
-    		console.log('Loading cargo ...' + amount);
+    		    console.log('Loading cargo ...' + amount);
   		  }
 		}
 		type Vehicle = Car | Truck;
-		const v1 = new Car();
-		const v2 = new Truck();
 		function useVehicle(vehicle: Vehicle) {
 		  vehicle.drive();
 		  if (vehicle instanceof Truck) {
-    	 	vehicle.loadCargo(1000);
+    	 	    vehicle.loadCargo(1000);
   		  }
 	 	}
+		const v1 = new Car();
+		const v2 = new Truck();
 		useVehicle(v1);
 		useVehicle(v2);
 
@@ -106,114 +120,112 @@ Discriminated Unions
 	It even with work interface.
 
 	interface Bird {
-  type: 'bird';
-  flyingSpeed: number;
-}
-
-interface Horse {
-  type: 'horse';
-  runningSpeed: number;
-}
-
-type Animal = Bird | Horse;
-
-function moveAnimal(animal: Animal) {
-  let speed;
-  switch (animal.type) {
-    case 'bird':
-      speed = animal.flyingSpeed;
-      break;
-    case 'horse':
-      speed = animal.runningSpeed;
-  }
-  console.log('Moving at speed: ' + speed);
-}
-
-moveAnimal({type: 'bird', flyingSpeed: 10});
-moveAnimal({type: 'horse', runningSpeed: 10});
-
-
+  		type: 'bird';
+  		flyingSpeed: number;
+	}
+	interface Horse {
+  		type: 'horse';
+  		runningSpeed: number;
+	}
+	
+	type Animal = Bird | Horse;
+	function moveAnimal(animal: Animal) {
+  		let speed;
+  		switch (animal.type) {
+    		case 'bird':
+      			speed = animal.flyingSpeed;
+      			break;
+    		case 'horse':
+      			speed = animal.runningSpeed;
+  		}
+  		console.log('Moving at speed: ' + speed);
+	}
+	moveAnimal({type: 'bird', flyingSpeed: 10});
+	moveAnimal({type: 'horse', runningSpeed: 10});
 
 
 
 Type Casting
 	Using <>
-		const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
+		const userInputElement1 = <HTMLInputElement>document.getElementById('user-input')!;
 	Using as
 		const userInputElement2 = document.getElementById('user-input')! as HTMLInputElement;
-
 	! ensure that expression before it will not yield a null value.
-	
-	const userInputElement3 = document.getElementById('user-input');
-	userInputElement.value='Hi1';
-	userInputElement2.value='Hi2';
-	if (userInputElement3) {
-	  (userInputElement3 as HTMLInputElement).value = 'Hi3 there!';
-	}
-
+		const userInputElement3 = document.getElementById('user-input');
+		
+		userInputElement1.value='Hi1';
+		userInputElement2.value='Hi2';
+		if (userInputElement3) {
+			(userInputElement3 as HTMLInputElement).value = 'Hi3 there!';
+		}
 	In which cases is type casting helpful?
-		You want to inform TS that a certain value is of a specific type
+		You want to inform TS that a certain value is of a specific type.
 
 Index Properties
-	
-interface ErrorContainer { // { email: 'Not a valid email', username: 'Must start with a character!' }
-  [prop: string]: string;
-}
-
-const errorBag: ErrorContainer = {
-  email: 'Not a valid email!',
-  username: 'Must start with a capital character!'
-};
-
-
-
+	interface ErrorContainer { // { email: 'Not a valid email', username: 'Must start with a character!' }
+		[prop: string]: string;
+	}
+	const errorBag: ErrorContainer = {
+		email: 'Not a valid email!',
+  		username: 'Must start with a capital character!'
+	};
+	console.log(errorBag);
 
 
 
 Function Overloads
-type Combinable = string | number;
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: string, b: number): string;
-function add(a: number, b: string): string;
-function add(a: Combinable, b: Combinable) {
-  if (typeof a === 'string' || typeof b === 'string') {
-    return a.toString() + b.toString();
-  }
-  return a + b;
-}
+	type Combinable = string | number;
+	function add(a: number, b: number): number;
+	function add(a: string, b: string): string;
+	function add(a: string, b: number): string;
+	function add(a: number, b: string): string;
 
-const result = add('Max', ' Schwarz');
-result.split(' ');
+	function add(a: Combinable, b: Combinable) {
+  		if (typeof a === 'string' || typeof b === 'string') {
+    			return a.toString() + b.toString();
+  		}
+  			return a + b;
+	}
+	const result = add('Max', ' Schwarz');
+	result.split(' ');
+
 
 
 Optional Chaining
+	console.log(fetchedUserData.job && fetchedUserData.job.title);
+		This is the JavaScript way of checking whether something exists, before we then dive deeper into dept potential object.
+			If that is not defined, this code never runs and hence avoid runtime error.
+		But if this fetched from some source for TypeScript, This would be the secure way of avoiding runtime errors.
 
-const fetchedUserData = {
-  id: 'u1',
-  name: 'Max',
-  job: { title: 'CEO', description: 'My own company' }
-};
-
-console.log(fetchedUserData?.job?.title);
+	console.log(fetchedUserData?.job?.title);
+		This is optional chaining.
+		here, We can access 'job' if 'fetchedUserData' available likewise We can access 'title' if 'job' available
+Example:
+	const fetchedUserData = {
+		id: 'u1',
+	  	name: 'Max',
+	  	job: { title: 'CEO', description: 'My own company' }
+	};
+	console.log(fetchedUserData.job && fetchedUserData.job.title);
+	console.log(fetchedUserData?.job?.title);
 
 
 
 Nullish Coalescing
+If we don't want to store "null/undefined/''", then we can define fallback value instead of "null".
+	such as, const nullData = null || 'DEFAULT';
 
-const userInput = null;// null or undefined
-const storedData1 = userInput || 'DEFAULT';
-console.log(storedData1);//DEFAULT
+	const userInput = null;// null or undefined
+	const storedData1 = userInput || 'DEFAULT';
+	console.log(storedData1);//DEFAULT
 
-const userInput2 = '';
-const storedData2 = userInput2 || 'DEFAULT';
-console.log(storedData2);//DEFAULT, we expected ''
+	const userInput2 = '';
+	const storedData2 = userInput2 || 'DEFAULT';
+	console.log(storedData2);//DEFAULT, we expected ''
 
-
-const userInput3 = '';
-const storedData3 = userInput3 ?? 'DEFAULT';
-console.log(storedData3);// ''
-
+	const userInput3 = '';
+	const storedData3 = userInput3 ?? 'DEFAULT';
+	console.log(storedData3);// ''
 
 
 Useful Resources & Links
