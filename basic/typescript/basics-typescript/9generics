@@ -1,8 +1,8 @@
 Built-in Generics & What are Generics?
 	It gives flexbility with type safety.
 	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-	 const names: Array<string> = []; // string[]
-  names[0].split(' ');
+		const names: Array<string> = []; // string[]
+  		names[0].split(' ');
 
  const promise: Promise<number> = new Promise((resolve, reject) => {
    setTimeout(() => {
@@ -38,7 +38,7 @@ interface Lengthy {
   length: number;
 }
 
-function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {	//Here, (element: T) is an argument type, [T, string] is return type
   let descriptionText = 'Got no value.';
   if (element.length === 1) {
     descriptionText = 'Got 1 element.';
@@ -47,82 +47,80 @@ function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
   }
   return [element, descriptionText];
 }
-
 console.log(countAndDescribe( 'Cooking'));
 console.log(countAndDescribe(['Sports', 'Cooking']));
 
 
 
 The "keyof" Constraint
-function extractAndConvert<T extends object, U extends keyof T>(
-  obj: T,
-  key: U
-) {
-  return 'Value: ' + obj[key];
-}
-extractAndConvert({ name: 'Max' }, 'name');
+	function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) {
+		return 'Value: ' + obj[key];
+	}
+	console.log(extractAndConvert({ name: 'Max' }, 'name')); //value: Max
 
 
 Generic Classes
 	https://academind.com/tutorials/reference-vs-primitive-values/
 	class DataStorage<T extends string | number | boolean> {
-  private data: T[] = [];
-  addItem(item: T) {
-    this.data.push(item);
-  }
-  removeItem(item: T) {
-    if (this.data.indexOf(item) === -1) {
-      return;
-    }
-    this.data.splice(this.data.indexOf(item), 1); // -1
-  }
-  getItems() {
-    return [...this.data];
-  }
-}
-const textStorage = new DataStorage<string>();
-textStorage.addItem('Max');
-textStorage.addItem('Manu');
-textStorage.removeItem('Max');
-console.log(textStorage.getItems());
+  		private data: T[] = [];
+  		addItem(item: T) {
+    			this.data.push(item);
+  		}
+  		removeItem(item: T) {
+    			if (this.data.indexOf(item) === -1) {
+      				return;
+    			}
+    			this.data.splice(this.data.indexOf(item), 1); // -1
+  		}
+  		getItems() {
+    			return [...this.data];
+  		}
+	}
+	const textStorage = new DataStorage<string>();
+	textStorage.addItem('Max');
+	textStorage.addItem('Manu');
+	textStorage.removeItem('Max');
+	console.log(textStorage.getItems());
 
-const numberStorage = new DataStorage<number>();
+	const numberStorage = new DataStorage<number>();
 
-// const objStorage = new DataStorage<object>();
-// const maxObj = {name: 'Max'};
-// objStorage.addItem(maxObj);
-// objStorage.addItem({name: 'Manu'});
-// // ...
-// objStorage.removeItem(maxObj);
-// console.log(objStorage.getItems());
-
+	// const objStorage = new DataStorage<object>();
+	// const maxObj = {name: 'Max'};
+	// objStorage.addItem(maxObj);
+	// objStorage.addItem({name: 'Manu'});
+	// // ...
+	// objStorage.removeItem(maxObj);
+	// console.log(objStorage.getItems());
 
 
 
 Generic Utility Types
 	https://www.typescriptlang.org/docs/handbook/utility-types.html
 	
-interface CourseGoal {
-  title: string;
-  description: string;
-  completeUntil: Date;
-}
+	We can implement interface partially also.
+		courseGoal: Partial<CourseGoal> = {};
+	
+	interface CourseGoal {
+	  title: string;
+	  description: string;
+	  completeUntil: Date;
+	}
 
-function createCourseGoal(
-  title: string,
-  description: string,
-  date: Date
-): CourseGoal {
-  let courseGoal: Partial<CourseGoal> = {};
-  courseGoal.title = title;
-  courseGoal.description = description;
-  courseGoal.completeUntil = date;
-  return courseGoal as CourseGoal;
-}
+	function createCourseGoal(
+	  title: string,
+	  description: string,
+	  date: Date
+	): CourseGoal {
+  	  let courseGoal: Partial<CourseGoal> = {};
+  	  courseGoal.title = title;
+  	  courseGoal.description = description;
+  	  courseGoal.completeUntil = date;
+  	  return courseGoal as CourseGoal;
+	}
 
-const names: Readonly<string[]> = ['Max', 'Anna'];
-// names.push('Manu');
-// names.pop();
+	const names: Readonly<string[]> = ['Max', 'Anna'];
+	// names.push('Manu');
+	// names.pop();
 
 Q)When can "Generics" come in very handy?
 A)Generics help you create data structures that work together or wrap values of a broad variety of types (e.g. an array that can hold any type of data).
@@ -135,8 +133,13 @@ Q)What's the idea behind constraints (when talking about generics)?
 A)Constraints allow you to narrow down the concrete types that may be used in a generic function etc.
 
 
-Generic Types vs Union Types
 
+Generic Types vs Union Types
+	Generic type can be great if we want to lock in a certain type, used the same type throughout the entire class instance
+	Generic type are lock in a type.	
+
+	Union type can be great if we want to have a function, which you can call with one of these types (number|string|boolean) every time we call it.
+	Union type are flexible to have a different type with eyery method/function called.
 
 Useful Resources & Links
 	Generics: https://www.typescriptlang.org/docs/handbook/generics.html
