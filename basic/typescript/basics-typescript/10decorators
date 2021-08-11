@@ -18,24 +18,30 @@ Useful Resources & Links
 
 
 Module Introduction
-	It is used for Meta-programming
+	It is used for Meta-programming.
+	Decorators are a particularly well suited instrument, for writting code which is easier to use by other developers.
+
 
 A First Class Decorator
-	"experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
-
 	Decorator's runs when your class is defined, not when it is instantiated.
 	Decorator's runs when JavaScript finds your class definition, your constructor function definition.
+	Decorator's function name starts with capital letter.
+		function Logger(constructor: Function) {}
 
+	In tsconfig.json:
+		"experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+
+	
 	function Logger(constructor: Function) {
   		console.log('Logging...');
   		console.log(constructor);
 	}
 	@Logger
 	class Person {
-		  name = 'Max';
-		  constructor() {
-    		console.log('Creating person object...');
-  			}
+		name = 'Max';
+		constructor() {
+    			console.log('Creating person object...');
+  		}
 	}
 	//const pers = new Person();
 	//console.log(pers);
@@ -48,13 +54,13 @@ Working with Decorator Factories
     		console.log(constructor);
   		};
 	}
-
+	
 	@Logger('LOGGING - PERSON')
 	class Person {
-		  name = 'Max';
-  			constructor() {
+		name = 'Max';
+  		constructor() {
     			console.log('Creating person object...');
-  			}
+  		}
 	}
 	
 	
@@ -82,7 +88,6 @@ function WithTemplate2(template: string, hookId: string) {
 @WithTemplate2('<h1>My Person Object</h1>', 'app')
 class Person {
   name = 'Max';
-
   constructor() {
     console.log('Creating person object...');
   }
@@ -119,11 +124,13 @@ function WithTemplate(template: string, hookId: string) {
 @WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
   name = 'Max';
-
   constructor() {
     console.log('Creating person object...');
   }
 }
+
+
+
 
 
 
