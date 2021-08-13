@@ -131,9 +131,6 @@ class Person {
 
 
 
-
-
-
 Diving into Property decorators, Accessor, Method and Parameter Decorators
 
 function Log(target: any, propertyName: string | Symbol) {
@@ -141,14 +138,12 @@ function Log(target: any, propertyName: string | Symbol) {
   console.log( propertyName);
   console.log(target);
 }
-
 function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
   console.log('Accessor decorator!');
   console.log(target);
   console.log(name);
   console.log(descriptor);
 }
-
 function Log3(
   target: any,
   name: string | Symbol,
@@ -159,7 +154,6 @@ function Log3(
   console.log(name);
   console.log(descriptor);
 }
-
 function Log4(target: any, name: string | Symbol, position: number) {
   console.log('Parameter decorator!');
   console.log(target);
@@ -171,7 +165,6 @@ class Product {
   @Log
   title: string;
   private _price: number;
-
   @Log2
   set price(val: number) {
     if (val > 0) {
@@ -180,12 +173,10 @@ class Product {
       throw new Error('Invalid price - should be positive!');
     }
   }
-
   constructor(t: string, p: number) {
     this.title = t;
     this._price = p;
   }
-
   @Log3
   getPriceWithTax(@Log4 tax: number) {
     return this._price * (1 + tax);
@@ -194,32 +185,52 @@ class Product {
 
 
 
-
-
-
 When Do Decorators Execute?
+	Doesn't:
+		const p1 = new Product('Book', 19);
+		const p2 = new Product('Book 2', 29);
+		This compiles without errors, but decorator code here doesn't run more often.
+			No matter if it was property decorator, method decorator, accessor decorator, parameter decorator.
+		These decorators do not execute at runtime when we call a method or when working with a properties.
+			Decorators are not event listeners.
+	Does:
+		They all executed when you defined this class.
+		These decorators allow to do additional behind the scenes work, to then setup some code that should run whatever it,
+			is called to add extra metadata or restores some data about a property somewhere in project or in library, which we're creating.
+			That is the core uses.
 
 
 
-Returning (and chaining) a Class in a Class Decorators
-function WithTemplate(template: string, hookId: string) {
-  console.log('TEMPLATE FACTORY');
-  return function<T extends { new (...args: any[]): {name: string} }>(
-    originalConstructor: T
-  ) {
-    return class extends originalConstructor {
-      constructor(..._: any[]) {
-        super();
-        console.log('Rendering template');
-        const hookEl = document.getElementById(hookId);
-        if (hookEl) {
-          hookEl.innerHTML = template;
-          hookEl.querySelector('h1')!.textContent = this.name;
-        }
-      }
-    };
-  };
-}
+Returning (and chaining) a Class in a "Class Decorators"
+	With a "Class Decorator function", can return a "new constructor" function which will replace the old one.
+		So it'll replace the class to which added the decorator
+	
+	function WithTemplate(template: string, hookId: string){
+	 	console.log('TEMPLATE FACTORY');
+	  	return function<T extends { new (...args: any[]): {name: string} }>(originalConstructor: T) {
+	    		return class extends originalConstructor { //Creating a class here, which just create a constructor function with below login in it.
+	      			constructor(..._: any[]) {
+	        			super(); //Here calling original constructor
+	        			console.log('Rendering template');
+	        			const hookEl = document.getElementById(hookId);
+	        			if (hookEl) {
+	          				hookEl.innerHTML = template;
+	          				hookEl.querySelector('h1')!.textContent = this.name;
+	        			}
+	      			}
+	   		 };
+	 	};
+	}
+
+	@WithTemplate('<h1>My Person Object</h1>', 'app')
+	class Person {
+ 		name = 'Max';
+  		constructor() {
+    			console.log('Creating person object...');
+  		}
+	}
+
+
 
 
 Other Decorator Return Types
@@ -228,51 +239,48 @@ Other Decorator Return Types
         Log & Log4 can return something & but typeScript cann't use it 
         
         
-Example: Creating an "Autobind" Decorator
 
-function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
-  const originalMethod = descriptor.value;
-  const adjDescriptor: PropertyDescriptor = {
-    configurable: true,
-    enumerable: false,
-    get() {
-      const boundFn = originalMethod.bind(this);
-      return boundFn;
-    }
-  };
-  return adjDescriptor;
-}
+Creating an "Autobind" Decorator
+	function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  		const originalMethod = descriptor.value; // This'll give the access to the original method
+  		const adjDescriptor: PropertyDescriptor = {
+  	  		configurable: true,
+  	  		enumerable: false,
+  	 		get() { // Getter here, It'll run with adding extra logic, before value returns 
+      				const boundFn = originalMethod.bind(this);
+      				return boundFn;
+    			}
+  		};
+  		return adjDescriptor;
+	}
 
-class Printer {
-  message = 'This works!';
-
-  @Autobind
-  showMessage() {
-    console.log(this.message);
-  }
-}
-
-const p = new Printer();
-p.showMessage();
-
-const button = document.querySelector('button')!;
-button.addEventListener('click', p.showMessage);
+	class Printer {
+  		message = 'This works!';
+  		@Autobind
+  		showMessage() {
+  	  		console.log(this.message);
+  		}
+	}
+	const p = new Printer();
+	//p.showMessage();
+	const button = document.querySelector('button')!; //Adding ! means, the value of document.querySelector('button') should not be null
+	//button.addEventListener('click', p.showMessage.bind(p)); //Without an "Autobind" Decorator
+	button.addEventListener('click', p.showMessage); //With an "Autobind" Decorator
 
 
 
 
 Validation with Decorators - Finished
+	interface ValidatorConfig {
+  		[property: string]: { //Here could be a class name
+    			[validatableProp: string]: string[]; // ['required', 'positive']
+  		};
+	}
 
-interface ValidatorConfig {
-  [property: string]: {
-    [validatableProp: string]: string[]; // ['required', 'positive']
-  };
-}
+	const registeredValidators: ValidatorConfig = {}; // it's empty because, when third party libraries gets loaded, no validators have been registered yet
 
-const registeredValidators: ValidatorConfig = {};
-
-function Required(target: any, propName: string) {
-  registeredValidators[target.constructor.name] = {
+	function Required(target: any, propName: string) {	//"Property Decorator"
+  		registeredValidators[target.constructor.name] = {
     ...registeredValidators[target.constructor.name],
     [propName]: ['required']
   };
@@ -311,24 +319,19 @@ class Course {
   title: string;
   @PositiveNumber
   price: number;
-
   constructor(t: string, p: number) {
     this.title = t;
     this.price = p;
   }
 }
-
 const courseForm = document.querySelector('form')!;
 courseForm.addEventListener('submit', event => {
   event.preventDefault();
   const titleEl = document.getElementById('title') as HTMLInputElement;
   const priceEl = document.getElementById('price') as HTMLInputElement;
-
   const title = titleEl.value;
   const price = +priceEl.value;
-
   const createdCourse = new Course(title, price);
-
   if (!validate(createdCourse)) {
     alert('Invalid input, please try again!');
     return;
@@ -341,10 +344,14 @@ courseForm.addEventListener('submit', event => {
 Fixing a Validator Bug
 	https://www.udemy.com/course/understanding-typescript/learn/lecture/16935744#questions/8835948
 
+
 Wrap Up
+	https://github.com/typestack/class-validator
+	https://angular.io/
+		Decorator is core part of the angular
+	https://docs.nestjs.com/controllers
+		NestJS is the server-side JavaScript framework for nodeJS, here we use Decorator.	
 
 
 Useful Resources & Links
-	https://github.com/typestack/class-validator
-	https://docs.nestjs.com/controllers
 	More on Decorators: https://www.typescriptlang.org/docs/handbook/decorators.html
