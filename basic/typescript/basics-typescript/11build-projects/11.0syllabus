@@ -1,0 +1,21 @@
+Module Introduction
+Getting Started
+DOM Element Selection & OOP Rendering
+Interacting with DOM Elements
+Creating & Using an "Autobind" Decorator
+Fetching User Input
+Creating a Re-Usable Validation Functionality
+Rendering Project Lists
+Managing Application State with Singletons
+More Classes & Custom Types
+Filtering Projects with Enums
+dding Inheritance & Generics
+Rendering Project Items with a Class
+Using a Getter
+Utilizing Interfaces to Implement Drag & Drop
+Drag Events & Reflecting the Current State in the UI
+Adding a Droppable Area
+Finishing Drag & Drop
+Wrap Up
+Useful Resources & Links
+
