@@ -14,7 +14,7 @@ Why JavaScript
 		console.log(add('2'+'3'));
 	
 What is TypeScript
-	A programming langugae
+	A programming language
 	A tool tsc
 	Free & Open-source
 	Developed & maintained by Microsoft
@@ -74,25 +74,26 @@ All valid primitive type of JS are valid types of TypeScript also.
 	myArr = [];
 	myArr = [1, 2];
 	myArr.push(3);
-	console.log(myArr);  
-  	console.log(myArr.pop());
+	console.log(myArr);  //[1, 2, 3]
+  	console.log(myArr.pop());//[3]
+	console.log(myArr);//[1,2]
 	
 5)Tuple
-	var myTuple : [ number,boolean];
+	var myTuple : [number,boolean];
 	myTuple = [1,true];
   	//myTuple = [2];//Invalid
 	myTuple = [4,true];
 	myTuple = [6,true];
-	myTuple.push(3);
-	myTuple.push(5);
-	myTuple.push(false);
+		myTuple.push(3); // 
+		myTuple.push(5);
+		myTuple.push(false);
 	console.log(myTuple);//[6, true, 3, 5, false] 
 	console.log(myTuple[0]);//6
 	console.log(myTuple[1]);//true
   
 6)Type erasure and TypeScript error behavior  
 	TypeScript feature exist only at development time. After compilation we get pure JavaScript feature.
-	TypeScript comilation is for developer. If TypeScript comipler got error, then it will show error but then also it will create JavaScript file.
+	TypeScript compilation is for developer. If TypeScript comipler got error, then it will show error but then also it will create JavaScript file.
 
 
 
