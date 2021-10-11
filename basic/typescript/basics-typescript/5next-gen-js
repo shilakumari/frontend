@@ -1,12 +1,84 @@
-Next-generation JavaScript & TypeScript
+Next-generation JavaScript & TypeScript 
+	Next-generation JavaScript mean ES6 or more recent.
+	
 Module introduction
-	https://kangax.github.io/compat-table/es6/
-"let" and "const"
+	https://kangax.github.io/compat-table/es6/ 
+	
+"let", "const" and "var"
+	"let": Value can be change, Lock Scope
+		let age = 20;
+		age = 30;
+	"const": Value can not be change, Lock Scope
+		const userName = 'max';
+		userName = 'Anna'//CTE
+	"var": By "var" can create global variable, Global Scope in JS
+		var result;
+		function add(a:number, b:number){
+			result = a+b;
+			return result;
+		}
+		console.log(result);
+	
+		//In TypeScript, CTE error
+		if(age > 20){
+			var isOld = true;
+		}
+		console.log(isOld);//CTE
+		
+		//In JavaScript, No CTE, because for "var" JavaScript allows 'global scope'.
+		if(age > 20){
+			var isOld = true;
+		}
+		console.log(isOld);//true
+		
+		
 Arrow Functions
-Default Function Parameters
+	const add = (a:number, b:number) => {
+    		return a+b;
+	}
+	console.log(add(2, 3));//5
+	(OR,)
+	const add = (a:number, b:number) => a+b;
+	console.log(add(2, 3));//5
+
+	const printoutput:(a:number|string) => void = (output:number|string) => console.log(output); 
+	printoutput(add(10, 20));//30
+	(OR,)
+	const printoutput:(a:number|string) => void = output => console.log(output); 
+	printoutput(add(10, 20));//30
+	
+	
+Default Function Parameters 
+	:Default Function Parameters should always be after 'non-default function parameter'.
+		const add = (a:number, b:number=11) => a+b;
+		const printoutput:(a:number|string) => void = output => console.log(output); 
+		printoutput(add(10));//21
+		
+		
 The Spread Operator (...)
+	It's really useful for pulling out the elements of an array.
+		(1.)
+		const hobbies = ['Sports', 'Cooking'];
+		const activeHobbies = [Hiking];
+		
+		//To push hobbies in activeHobbies:
+		activeHobbies.push(hobbies[0], hobbies[1]);
+		(OR,)
+		const activeHobbies = [Hiking, ...hobbies];
+		(OR,)
+		activeHobbies.push(...hobbies);
+		
+		(2.)
+		const person1 ={
+    			name:"shila",
+    			course: "btech"
+		} 
+		const copiedPerson = {...person1};       
+	
 	https://academind.com/tutorials/reference-vs-primitive-values/
+
 Rest Parameters
+	
 Array & Object Destructuring
 How code Gets Compiled & Wrap Up
 Useful Resources & Linkes
