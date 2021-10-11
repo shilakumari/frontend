@@ -79,9 +79,9 @@ class Department {
   }
   const accounting = new Department();
   console.log(accounting);//Department {addresses: Array(0)}
-  accounting.addAddress("Atraulia");
-  accounting.addAddress("Azamgarh");
-  accounting.printAddresses();//(2) ["Atraulia", "Azamgarh"]
+  accounting.addAddress("Patna");
+  accounting.addAddress("Bihar");
+  accounting.printAddresses();//(2) ["Patna", "Bihar"]
   
   
 Compiling to JavaScript
@@ -112,23 +112,21 @@ Shorthand Initialization
     printAddresses(){
         console.log(this.addresses.length);
         console.log(this.addresses);
-        console.log(`Department Details: (${this.id}) & ${this.name1}`);//Department Details: (ID1) & Vinay
+        console.log(`Department Details: (${this.id}) & ${this.name1}`);
     }
   }
   //const accounting = new Department();//CTE
-  const accounting = new Department('ID1',"Vinay");
-  console.log(accounting);//Department {addresses: Array(0), id: "ID1", name1: "Vinay"}
-  accounting.addAddress("Atraulia");
-  accounting.addAddress("Azamgarh");
-  accounting.printAddresses();//(2) ["Atraulia", "Azamgarh"]
+  const accounting = new Department('1',"Shila");
+  console.log(accounting);//Department {addresses: Array(0), id: "1", name1: "Shila"}
+  accounting.addAddress("Patna");
+  accounting.addAddress("Bihar");
+  accounting.printAddresses();//(2) ["Patna", "Bihar"]
   
   
 "readonly" Properties
 	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 	private, public & readonly introduced in TypeScript. It was not present in JavaScript.
-
-
-
+	readonly property initialize only once and their value can not override
 
 
 
