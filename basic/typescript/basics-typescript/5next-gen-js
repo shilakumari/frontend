@@ -77,9 +77,38 @@ The Spread Operator (...)
 	
 	https://academind.com/tutorials/reference-vs-primitive-values/
 
+
 Rest Parameters
+	: Used for variable number of arguments.
+	(1.)
+	const add = (...numbers: number[]) => {
+		return numbers.reduce((curResult, curVal) => { return curResult + curVal }, 0);
+	};
+	console.log(add(2, 1, 3, 4, 5));//15
+	
+	(2.)
+	const add = (...numbers: [number, number, number]) => {
+		return numbers.reduce((curResult, curVal) => { return curResult + curVal }, 0);
+	};
+	console.log(add(2, 1, 3));//6
+	//console.log(add(2, 1, 3, 4, 5));//CTE, Accept only three arguments
+	
 	
 Array & Object Destructuring
+	(1.) In An Array, we can pull elements by based on index by default
+	let hobbies:string[] = ["sports", "cooking", "playing", "reading", "laughing"];
+	const [hobby1, hobby2, ...remainingHobbies] = hobbies;
+	console.log(hobbies, hobby1, hobby2); //["sports", "cooking", "playing", "reading", "laughing"] "sports" "cooking"
+	
+	(2.)In an Object type, we have to specify a property as a key, so that can pull object's data based on key 
+	const person = {
+    		name:"shila",
+    		course: "btech"
+	} 
+	const {name:userName, course} = person;
+	console.log(userName, person); // "shila" [name:"shila", course: "btech"]
+	
+	
 How code Gets Compiled & Wrap Up
 Useful Resources & Linkes
 
