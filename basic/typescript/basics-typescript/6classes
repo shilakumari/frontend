@@ -92,6 +92,7 @@ Constructor Functions & The "this" Keyword
 	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields
 	Default is public
 	We may define field as private
+		those properties are private, we can access within the class, can't able to access outside the class or it's child class.
 	
 Shorthand Initialization
 	class Department {
@@ -177,7 +178,11 @@ Overriding Properties & The "protected" Modifier
 	protected properties are inherited by child class & accessed via 'this' keyword
 	
 
-Getters & Setters
+Getters & Setters 
+	We can access Getters & Setters method as property, not like method.
+	Such as: 
+		accounting.mostRecentReport = 'Year End Report';//call setter
+  		console.log(accounting.mostRecentReport);//call getter
   class Department {
     private lastReport: string;
   
@@ -216,8 +221,10 @@ Abstract Classes
 	
 Singletons & Private Constructors
 	Singleton Design Pattern- Only one object can be created for a Singleton class.
-	A singleton class is configured such that you don't create it with "new" 
-		but by calling a method which then ensures that only one instance of the class exists at any given time.
+	A singleton class is configured such that you don't create it object with "new" all the time
+		but by calling a method which then ensures that only one instance of the class exists at any given time. 
+	For Singleton, needed private constructor.
+	
 class Department  {
     private static instance: Department;
     private constructor(private name:string) { 
@@ -225,7 +232,7 @@ class Department  {
     }
     static getInstance() {
       if (!Department.instance) {
-          console.log("Vinay");
+          console.log("Shila");
           this.instance = new Department("Shalu");
       }
       console.log("Vinay2");
