@@ -1,0 +1,488 @@
+                                                        Type Script Assignment Solutions
+
+
+
+1.  Variables and Data Types
+
+A.  var num1 : number = 20;
+    var num2 : number = 3.14;
+	var text1 : string = "Success is the best Revenge";
+	enum DaysoftheWeek {
+    Monday = 1,
+    Tuesday = 2,
+    wednesday = 3,
+    Thursday = 4,
+    Friday = 5,
+    Saturday = 6,
+    Sunday = 7
+	}
+ 
+	console.log(num1);
+	console.log(num2);
+	console.log(text1);
+	console.log(DaysoftheWeek);
+	
+	
+2.	Loops
+
+A.	var input:number = parseInt(prompt('Enter a number'));
+	var i:number = 0;
+ 
+	//While loop version
+	console.log('While loop verison');
+	while(i <= input){
+    if(i % 5 === 0){
+    i++
+    continue;
+    }
+    console.log(i);
+    i++;
+	}
+ 
+	//For loop version, same thing but the i++ is handled for us by the loop
+	console.log('For loop version');
+	for(let i=0; i<=input; i++){
+    if(i % 5 === 0){
+    continue;
+    }
+    console.log(i);
+	}
+	
+	
+3.	Objects
+
+A.	var vaccine:any = ["Johnson & Johnson","pfizer","Sputnik"];
+	vaccine.push("Co-Vaxin");
+ 
+	for (var i=0; i<vaccine.length; i++) {
+    console.log(vaccine[i]);
+	}
+ 
+	var [a, b, c, d] = vaccine;
+	console.log(a,",",b,",",c,",",d)
+	
+4.	Arrays
+
+A.	var vaccines = ["J&J","Pfizer","Sputnik"];
+	vaccines.push("Covaxine");
+	for(var item in vaccines){
+    console.log(vaccines[item]);
+	}
+	var [v1,v2,v3,v4] = vaccines;
+	console.log(v1+" "+v2+" "+v3+" "+v4);	
+	
+5.	Functions
+
+A.	enum Subject {
+    Maths,
+    Physics,
+    Chemistry
+}
+ 
+	enum Grade {
+    GradeA="A",
+    GradeB="B",
+    GradeC="C"
+}
+ 
+	var marks:number[] = [];
+	var noteToBePrompt = Object.keys(Subject).length / 2; // enum indexes structure.
+ 
+	for(var i = 0; i<noteToBePrompt; i++)
+{
+    marks.push(parseInt(prompt("Enter marks for " + Subject[i] + " between 0 and 100"), 10));
+}
+ 
+	function average(mark1:number, mark2:number, mark3:number, ...moreMarks:number[]):number{
+    var nbMarks:number = 3;
+    var hasMoreMarks:boolean = false;
+    if(moreMarks && moreMarks.length > 0)
+    {
+        nbMarks += moreMarks.length;
+        hasMoreMarks = true;
+    }
+    var marks:number[] = [mark1, mark2, mark3];
+    if(hasMoreMarks)
+    {
+        marks.push(...moreMarks);
+    }
+    return sum(...marks) / nbMarks;
+}
+ 
+	function sum(...nums:number[]):number {
+    var result:number = 0;
+    if(nums && nums.length > 0)
+    {
+        for(var i = 0; i<nums.length; i++)
+        {
+            result += nums[i];
+        }
+    }
+    return result;
+}
+ 
+	function displayGrade(average:number):string{
+    if(average < 70 && !isNaN(average))
+    {
+        return Grade.GradeC + " Grade";
+    }
+    else if(average >= 70 && average < 90 && !isNaN(average))
+    {
+        return Grade.GradeB + " Grade";
+    }
+    else if(!isNaN(average))
+    {
+        return Grade.GradeA + " Grade";
+    }
+    else
+    {
+        return "Impossible to establish a Grade";
+    }
+}
+ 
+	console.log(displayGrade(average(marks[0], marks[1], marks[2], ...marks.splice(3))));
+	
+	
+6.	Arrow Functions
+
+A.	let isPrimer = (num:number)=>{
+    if (num <= 1) return false
+    if (num % 2 == 0 && num >2 ) return false
+	let s = Math.sqrt(num)
+	for(let i = 3; i <= s; i++) { 
+    if(num % i === 0) return false
+	return true
+	}
+	console.log(isPrimer(9)	
+	
+7.	Interfaces
+
+A.	interface Book {
+ 
+	title: string;
+ 
+	isbn: string;
+ 
+	description: string;
+ 
+	price: number;
+ 
+}
+ 
+	var books: Book = {
+ 
+	title: "My Experiments with Truth",
+ 
+	isbn: "ISBN 978-0",
+ 
+	description: "Autobiography of Mahatma Gandhi",
+ 
+	price: 200
+	
+}
+ 
+	console.log(books);	
+	
+	
+8.	Classes	
+
+A.	class Organizer {
+    id:number;
+    name:string;
+ 
+    constructor(id:number, name:string) {
+        this.id = id;
+        this.name = name;
+    }
+ 
+    display(){
+    console.log('Id and name of the Organizer is -> '+ this.id +" and "+ this.name)
+    } 
+}
+ 
+	class myEvent {
+    id:number;
+    name:string;
+    description:string;
+    startTime:string;
+    endTime:string;
+ 
+    constructor(id:number, name:string, description:string, startTime:string, endTime:string) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime
+    }
+ 
+    display(){
+        console.log('Details of the Event -> '+ this.id + ', ' + this.name + ', ' + this.description + ', ' + this.startTime + ', ' + this.endTime)
+    } 
+}
+ 
+	class Venue {
+    id:number;
+    name:string;
+    description:string;
+    address:string;
+ 
+    constructor(id:number, name:string, description:string, address:string) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.address = address;
+    }
+ 
+    display(){
+        console.log('Details of the Venue -> '+ this.id + ', ' + this.name + ', ' + this.description + ', ' + this.address)
+    } 
+}
+ 
+	var organizer = new Organizer(1,'ABC');
+	organizer.display()
+	console.log('------------------------------------')
+	var event1 = new myEvent(1,'Test','Test event','9 AM', '5 PM');
+	event1.display()
+	console.log('------------------------------------')
+	var venue = new Venue(1,'Venue','Test Venue','123 Test Street');
+	venue.display()
+	
+9.	Inheritance
+
+A.	class touchScreenLaptop {
+    ram:number;
+    hd:number;
+    processor:string;
+ 
+    constructor(ram:number, hd:number, processor:string) {
+        this.ram= ram;
+        this.hd = hd;
+        this.processor = processor;
+    }
+ 
+    scroll() {
+        console.log('scrolling...');
+    }
+    click() {
+        console.log('Clicked...')
+    }
+ 
+    display(ram:number, hd:number, processor:string) {
+        console.log('RAM -> '+this.ram);
+        console.log('HD -> '+this.hd);
+        console.log('Processor -> '+this.processor);
+    }
+}
+ 
+	class HPLaptop extends touchScreenLaptop {
+    selfRecovery:boolean;
+ 
+    selfRecoveryFunc() {
+        this.selfRecovery = true;
+        console.log('System Recovered...')
+    }
+ 
+    constructor(ram:number, hd:number, processor:string, selfRecovery:boolean) {
+        super(ram, hd, processor);
+        this.display(ram, hd, processor)
+        this.selfRecovery = selfRecovery
+    }
+ 
+    scroll() {
+        console.log('HP Laptop Scrolling');
+    }
+}
+ 
+	class dellLaptop extends touchScreenLaptop {
+    mobileAccess:boolean;
+ 
+    mobileAccessFunc() {
+        this.mobileAccess = true;
+        console.log('Mobile Access granted...')
+    }
+ 
+    constructor(ram:number, hd:number, processor:string, mobileAccess:boolean) {
+        super(ram, hd, processor);
+        this.display(ram, hd, processor)
+        this.mobileAccess = mobileAccess
+    }
+ 
+    scroll() {
+        console.log('Dell Laptop Scrolling');
+    }
+}
+	console.log('------HP Laptops--------')
+	var hp1 = new HPLaptop(10,64,'intel', true);
+	hp1.selfRecoveryFunc();
+	hp1.scroll();
+	console.log('\n------Dell Laptops--------')
+	var dl1 = new dellLaptop(50, 32, 'intel', false)
+	dl1.mobileAccessFunc();
+	dl1.scroll();
+	
+	
+10.	Encapsulation
+
+A.	class Organizer{
+    private _id:number;
+    private _name:string;
+    constructor(id:number,name:string){
+        this._id=id;
+        this._name=name;
+    }
+ 
+    display():void{
+        console.log("Organiser Id : "+this._id+"Organiser Name :  "+this._name);
+    }
+ 
+    public get getId():number{
+        return this._id;
+    }
+    public get getName():string{
+        return this._name;
+    }
+ 
+    public set setId(id:number){
+        this._id=id;
+    }
+    public set setName(name:string){
+        this._name=name;
+    }
+}
+ 
+	class Events{
+    private _id:number;
+    private _name:string;
+    private _description:string;
+    private _startTime:string;
+    private _endTime:string;
+ 
+    constructor(id:number,name:string,description:string,startTime:string,endTime:string){
+        this._id=id;
+        this._name=name;
+        this._startTime=startTime;
+        this._description=description;
+        this._endTime=endTime;
+    }
+    display():void{
+        console.log(this._id+" "+ this._name+" "+
+            this._startTime+" "+
+            this._description+" "+
+            this._endTime);
+    }
+ 
+    public get getId():number{
+        return this._id;
+    }
+    public get getName():string{
+        return this._name;
+    }
+    public get getDescription():string{
+        return this._description;
+    }
+    public get getStartTime():string{
+        return this._startTime;
+    }
+    public get getEndTime():string{
+        return this._endTime;
+    }
+ 
+    public set setId(id:number){
+        this._id=id;
+    }
+    public set setName(name:string){
+        this._name=name;
+    }
+    public set setDescription(description:string){
+        this._description=description;
+    }
+    public set setStartTime(startTime:string){
+        this._startTime=startTime;
+    }
+    public set setEndTime(endTime:string){
+        this._endTime=endTime;
+    }
+ 
+}
+ 
+	class Venue{
+   private _id:number;
+   private _name:string;
+   private _description:string;
+   private _address:string;
+ 
+    constructor(id:number,name:string,description:string,address:string){
+        this._id=id;
+        this._name=name;
+        this._description=description;
+        this._address=address;
+    }
+ 
+    display():void{
+        console.log(this._id+" "+
+            this._name+" "+
+            this._description+" "+
+            this._address);
+    }
+ 
+    public get getId():number{
+        return this._id;
+    }
+    public get getName():string{
+        return this._name;
+    }
+    public get getDescription():string{
+        return this._description;
+    }
+    public get getAddress():string{
+        return this._address;
+    }
+ 
+    public set setId(id:number){
+        this._id=id;
+    }
+    public set setName(name:string){
+        this._name=name;
+    }
+    public set setDescription(description:string){
+        this._description=description;
+    }
+    public set setAddess(address:string){
+        this._address=address;
+    }
+}
+ 
+	var organiser=new Organizer(123,"BCCI");
+	organiser.setName="ICC";
+	organiser.setId=123;
+	console.log(organiser.getName);
+	console.log(organiser.getId);
+	organiser.display();
+ 
+	var events=new Events(125,"Indian Primiear League","IPL event Organised by BCCI","!0:00 Am","4:00 Pm");
+	events.setId=122;
+	events.setName="IPL"
+	events.setDescription="Organised by BCCI";
+	events.setStartTime="11:00 Am.";
+	events.setEndTime="8:00 PM";
+	console.log(events.getName);
+	console.log(events.getId);
+	console.log(events.getDescription);
+	console.log(events.getStartTime);
+	console.log(events.getEndTime);
+	events.display();
+ 
+	var venue=new Venue(12,"Saudi Amerca","Best Venue","ABC Stadium");
+	venue.setId=11;
+	venue.setName="Saudi Arab";
+	venue.setDescription="Part Of Asia Continent";
+	venue.setAddess="XYZ Stadium";
+	console.log(venue.getName);
+	console.log(venue.getId);
+	console.log(venue.getDescription);
+	console.log(venue.getAddress);
+	venue.display();
+	
+	
+--------------------------------------------------------------------------------------------------------------------------------------------	
+ 
