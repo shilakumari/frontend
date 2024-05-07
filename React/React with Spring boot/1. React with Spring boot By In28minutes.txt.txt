@@ -1,0 +1,494 @@
+SECTION: 9 Full Stack Application with Spring boot and React
+https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/13-full-stack
+https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/13-full-stack/step-by-step-changes/step-by-step-changes-full-stack.md
+	1. Full Stack
+		Modern JavaScript-> React Fundamentals-> Components->State->Routing->REST API->Authentication
+		Full Stack-> Default Architecture Style-> Manatory Skill
+		Full Stack give flexibility and allow reuse of REST API.
+
+	2. JavaScript vs Modern JavaScript
+		JavaScript(EARLIER JS Version) very defficult to write maintainable code
+		versions: ES5-2009, ES6-2015-ES2015, ES7-2016,..., ES13-2022, ES14-2023
+		ES: ECMASCRIPT
+			EcmaScript is standard
+			JavaScript is implementation
+		now maintainable code can write easily.
+	
+	3. Visual Studio Code 
+		Multi-Plateform: Windows, Mac, Linux
+		Multi-Language: Java, JavaScript, Python
+		Extensible: Variety of plugins
+		Usage growing every year
+		Command:
+			ctrl+B - Toggle Explorer
+			ctrl+p - To search for a specific file
+
+	4. Installing nodejs and npm
+		google -> download nodejs-> window installer-> Linux Binary-> install nodejs
+			node --version
+			npm --version
+			npm init -> It creates package.json file (like pom.xml in maven).
+		To install "jquery" javascript library-
+			npm install jquery
+		
+	5. React
+		It's JavaScript libraries to build SPA(Single Page Application)		
+		Such as- Angular, VueJS
+		Open-source project created by Facebook
+		Applications would be combination of components.
+		Uses-
+			Mostly used to build FRONT-END web SPA applications			
+			Also used to create NATIVE APPS for Android, ios(React Native)	
+		Prerequisite:
+			NPM- package manager:Install,update,delete JS packages(npm --version, npx --version)
+			NPX- package executer:Execute JS package directly, without installing
+		command: 
+			cd YOUR_FOLDER
+			npx create-react-app todo-app
+			cd todo-app
+			npm start
+			npm test: Run unit tests
+			npm run build: Build a production deployable unit(Optimized for performance)
+				Only 3 files created(css,js,media) in the path todo-app\build\static\
+
+			npm install --save react-router-dom: Add a dependency to project.
+			command+c: To stop the application
+			TROUBLESHOOTING
+				Window: Launch command prompt as administrator
+				Mac or Linux: Use sudo
+					sudo npx create-react-app todo-app
+				if problem then uninstall and clear chache-
+					npm uninstall -g create-react-app
+					npx clear-npx-cache
+				Google for "create raect app troubleshooting"
+		a.) create-react-app FOLDER STRUCTURE
+			README.md: Documentation
+			package.json: Define dependencies(similar to maven pom.xml)
+			node_modules: Here all downloaded dependencies present
+			React Initialization:
+				public/index.html: contains root div
+				src/index.js: Initialize React App. Loads App component.
+					src/index.css: Styling for entire application.
+				src/App.js: Code for App component
+					src/app.css: Styling for App component
+					src/app.test.js: Unit tests for App component
+		b.) React COMPONENTS
+			Web applications have complex structure like Menu,Header,Footer,Login etc	
+			Components help to modularize React apps.
+				Create components for each page element such as
+					Menu Component,Header Component,Footer Component,...
+			A component starts with capital letter. 
+			Why?
+				Modularization, Reuse
+			First component typically loaded: App Component (root component:- App)
+		c.) Parts of a Component
+			view(JSX OR JavaScript)
+			Logic(JavaScript)
+				Each JavaScript file called module.
+			Styling(CSS)
+			State(Internal Data Store)
+			Props(Pass Data) 
+		d.) Component types
+			Function based component
+			Class based component
+		e.) Create Function Based Components
+			Every component is the child of "App" component, so that give tag in "App" component.
+			function FirstComponent() {
+  				return ( <div className="FirstComponent">FirstComponent</div> );
+			}
+			function App() {
+				return ( <div className="App">My Todo Application
+					<FirstComponent></FirstComponent></div> );
+			}
+		f.) Create Class Based Components
+			import { Component } from 'react';
+			class ThirdComponent extends Component{
+  				render(){
+  		 		return ( <div className="ThirdComponent">ThirdComponent</div> );
+  				}
+			}
+			function App() {
+				return ( <div className="App">My Todo Application
+					<ThirdComponent></ThirdComponent></div> );
+			}
+		IMPORT TYPE:
+			Default Import:
+				import FirstComponent from './...';
+			Named Import: 
+				import {FirstComponent} from './...';	
+		g.) State
+			State: Build-in React object used to contain data or information about the component.
+			In earlier versions of React, ONLY "Class Component" has state.
+				And implementing state was very complex.
+			HOOKS (React 16.8)
+ 				Hooks very easy to use
+				useState hook allows adding state to "Function Component".
+		h.) JSX- views with React
+			React project use JSX for presentation.
+			It's stricter than HTML
+				Close tags are mandatory
+				Only one top-level tag allowed
+				 Cannot return multiple top-level JSX tags
+				 Wraped into a shared parent- <div></div> or <>...</>(empty wrapper)
+			How JSX enabled?
+				"Bable" ensure backward compatibility for JS code.
+				Bable also convert JSX to JS.
+				https://babeljs.io/repl
+		i.) JavaScript
+			No need to use semicolon.
+			Dynamic objects
+			You can store function in an object.
+				const person={
+					name: 'Shila',
+    					profile: ['Twitter','Instagram','Linkedin'],
+    					printProfile:()=> {person.profile.map(profile=>console.log(profile))}
+				}
+		
+		
+
+SECTION 10: REACT COMPONENTS WITH COUNTER
+	1. Create React component named "Counter"
+	Counter.jsx
+		export default function Counter(){
+			function increamentCounterFunction(){console.log("Increament clicked");}			return(<div className="Counter">
+           		<span className="count">0</span>
+           	<div>
+		<button className="counterButton" onClick={increamentCounterFunction}+1</button>
+            	</div></div>)}
+	2. Options of styling React Components
+		style 
+			<button style={{borderRadius:"30px"}}>
+		className
+			Counter.css
+			.counterButton{
+				font-size:16px;background-color:#00a5ab;width:100px;margin:10px;}
+			.count{ font-size:100px; padding:20px;}
+	3. State
+		Built-in React object used to contain data or information about the component.
+		In React earlier versions, Only class Component can have "state".
+		Then, HOOK INTRODUCED IN React 16.8
+			Need to import "useState" that predefined in React.
+			useState hook allows adding state to "Function Component".	 	
+		useState returns:
+			a. count state
+			b. A function to update state 
+		Each instance of component has it's own sate
+		How to share state between components?
+			Move state "upwards" (to a parent component)
+	4. Props (Properties)
+		Each components associated with number of properties.
+		We can pass "props" object to React Component
+		Used when remain a constant during lifetime of a component.
+			Ex:- Increament value of a specific component
+		Playing With Props:
+			function PlayingWithProps({property1,property2}){
+ 				console.log(property1) console.log(property2)
+  				return(<div>Props</div>)} 
+		PropTypes:
+			We can set types of props (import PropTypes)
+				Counter.propTypes={ x:PropTypes.number }
+			We can set default value of props
+				Counter.defaultProps={ x:1 }		
+	5. Set Global State	
+		By calling a parent component method
+			<CounterButton increamentMethod={increament}>
+	6. React Developer Tools - Crome Extension
+		Goal - Inspect React Component Hierarchies
+		Components tab shows:
+			Root React components
+			Sub components that were rendered
+		For each component, can see and edit
+			props
+			state
+		Useful for:
+			Understanding and Learning React
+			Debugging problems
+		google-> React Developer Tools-> add to Chrome
+
+
+
+SECTION 11: Building Java Todo Full Stack Application with Spring Boot and React
+	1. controlled or uncontrolled input element
+	In Form elements with React there are two different things: 
+	Uncontrolled Input Element:
+		holding the value of the form variable in React-State.
+	Controlled Input Element:
+		The value in the form element itself.
+		With form elements with React, need to ensure that "React State and the dom value" are synchronized.
+	2. Conditionally display message in Login Component
+		(true && 'Ranga' -> 'Ranga' and false && 'Ranga' -> false)
+		function SuccessMessageComponent(){
+        	if(showSuccessMessage){
+			return (<div className="successMessage">Authenticated Successfully</div>)
+        	}else{
+            		return null }}
+		Instead of creating "SuccessMessageComponent", we can replace with following:
+			{showSuccessMessage && <div className="successMessage">Authenticated 				Successfully</div>}
+	3. Adding React ROUTER Dom and Routing from Login to Welcome Component
+		Installating Router
+			npm install react-router-dom
+				In package.json added: "react-router-dom": "^6.23.0"
+		Now Import BrowserRouter, Routes, Route, useNavigate:
+		import { BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
+			<BrowserRouter>
+                	<Routes>
+                	    <Route path='/' element={<LoginComponent/>}></Route>
+                	    <Route path='/login' element={<LoginComponent/>}></Route>
+                	    <Route path='/welcome' element={<WelcomeComponent/>}></Route>
+                	</Routes>
+            		</BrowserRouter>		
+		useNavigate:
+			const navigate = useNavigate()
+		Now routing Login to Welcome page, if authentication successful:
+			function handleSubmit(){
+        			if(username==='in28minutes' && password==='dummy'){
+		        	    console.log('Success')
+		        	    navigate('/welcome')
+				}
+			}
+	4. Adding ErrorComponent:
+		For unknown url creating a Error Component.
+		function ErrorComponent(){ return(
+      			<div className="ErrorComponent">
+          		<div>Apologies for the 404, reach out to our team at ABC-DEF-GHIJ</div>
+      			</div> )}
+		Defining Route for ErrorComponent:
+			<Route path='*' element={<ErrorComponent/>}></Route>
+	5. Removing Hardcoded from Welcome Component
+		Need to import "useParams" to get parameter value.
+		Defining Route:
+			<Route path='/welcome/:username' element={<WelcomeComponent/>}></Route>
+		function handleSubmit(){
+        		if(username==='in28minutes' && password==='dummy'){
+      				console.log('Success')
+				navigate(`/welcome/${username}`)}
+		function WelcomeComponent(){
+    			const {username} = useParams()
+    			console.log(username);
+      			return(<div className="WelcomeComponent">
+        			<h2>Welcome {username}</h2>)}
+	6. ListTodoComponent
+		Created ListTodoComponent Component.
+		Difine route:
+			 <Route path='/todos' element={<ListTodoComponent/>}></Route>
+		Give link to WelcomeComponent:
+			1. <a href='/todos'>Todo here</a>
+				In this entire page is being refresh
+			2. <Link to='/todos'>Todos here</Link>
+				<link> defined in React. 
+				By this entire page doesn't refresh and follow SPA.
+	7. Create Header, Footer, Logout component
+		function HeaderComponent(){ return(
+      			<div className="Header"> <div>Header<hr/></div> </div> )}	
+		function FooterComponent(){ return(
+      			<div className="Footer"> <div><hr/>Footer</div> </div> )}	
+		function LogoutComponent(){ return(
+      			<div className="Logout"> <div>Logged out!</div> </div> )}	
+			Route:
+				<Route path='/logout' element={<LogoutComponent/>}></Route>
+		Showing Header, Footer to the browser:
+			<HeaderComponent/>
+            		<BrowserRouter>
+                		<Routes>
+				 <Route path='/logout' element={<LogoutComponent/>}></Route>	
+				 ...
+				</Routes>
+			</BrowserRouter>
+			<FooterComponent/>
+	8. Adding Bootstrap
+		command: npm install bootstrap
+		To check -  
+			package.json: "bootstrap": "^5.3.3"
+		Always dependency downloaded in node_modules -
+			node_modules-> bootstrap-> dist-> css->  bootstrap.min.css	
+		To use throughout in application: Import 'bootstrap.min.css' in index.js file.
+			import 'bootstrap/dist/css/bootstrap.min.css';
+		Now able to use predefined classes provided by Bootstrap.
+			Ex: <div className="container">
+			<table className="table"> 
+	7. Using Bootstrap
+		https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/13-full-stack/99-reuse/00-header-component.md
+	8. Sharing React State with multiple components with Auth Context
+		AuthContext.jsx
+		//1.Create a context
+		export const AuthContext = createContext()
+		//2. Share the created context with other components
+		export default function AuthProvider({children}){
+			//Put some state in the context
+    			const [number, setNumber] = useState(10)	
+			return(
+        		<AuthContext.Provider value={{number}}>{children}</AuthContext.Provider> 			)}
+		Now, providing Context through 'AuthProvider' for all components:
+			<AuthProvider>
+                		<BrowserRouter>
+                		<HeaderComponent/>
+                			<Routes>
+                    			<Route path='/' element={<HeaderComponent/>}></Route>
+					...
+			 	</BrowserRouter>
+			</AuthProvider>
+		Using Context in components: 
+			function HeaderComponent(){
+    				const authContext = useContext(AuthContext)
+    				console.log(authContext.number)}
+	9. Updating React State
+		AuthContext.jsx
+			(Added)const useAuth = ()=> useContext(AuthContext)
+			setInterval( ()=> setNumber(number+1), 100000)
+		If want context in other components then only need to import useAuth.
+		Ex: HeaderComponent.jsx
+			const authContext = useAuth()
+		variable vs object:
+			const a=10, const b=20
+			const obj={a, b} 	
+	10. Protecting secure React Routes using AuthenticatedRoute
+		TodoApp.jsx
+			function AuthenticatedRoute({children}){
+    				const authContext = useAuth()
+        			if(authContext.isAuthenticated)
+            				return children
+        			return <Navigate to="/"/> }
+
+		Protecting routes by "AuthenticatedRoute":
+			<Route path='/todos' element={
+                        	<AuthenticatedRoute><ListTodoComponent/></AuthenticatedRoute>
+           		}/>
+                       
+                        
+
+SECTION 12: CONNECT SPRINGBOOT REST API WITH REACT
+	 https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/13-full-stack/99-reuse/01-rest-api-starting-code.zip
+	1. Call REST API from React
+		Framework "axios" can call REST api from React.
+			axios makes use of promises.
+		Installation: npm install axios
+			package.json: "axios": "^1.6.8"		
+		Using "axios" in WelcomeComponent:
+			function callHelloWorldRestApi(){
+				axios.get('http://localhost:8080/hello-world')
+        			.then( (response) => successfulResponse(response) )
+        			.catch( (error) => errorResponse(error) )
+        			.finally( () => console.log("Cleanup") ) }
+		Now run React application:
+			http://localhost:3000/welcome/in28minutes
+			Got error:- Access to XMLHttpRequest at 'http://localhost:8080/hello-world' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+		By default call from other websites are disable.
+		Need permission to allow this request.
+	2.Fixing 403 Responses for Requests
+		SOLUTION 1
+			ctrl+shift+t- type WebMvcConfigurer- ctrl+f- type addCorsMappings
+		1.Create Java Bean for "WebMvcConfigurer" in main class
+			@Bean
+			public WebMvcConfigurer corsConfigurer() {
+				return new WebMvcConfigurer() {
+					public void addCorsMappings(CorsRegistry registry) {
+						registry.addMapping("/**")
+							.allowedMethods("*")
+							.allowedOrigins("http://localhost:3000");
+					}
+				}; }
+			Now running http://localhost:3000/welcome/in28minutes 
+		SOLUTION 2
+		1:  Change your CrossOrigins annotation in your JAVA code to
+			@CrossOrigins(origins="http://localhost:3000",allowCredentials = "true")
+		2: Add Origin header to your requests
+			'Origin': 'http://localhost:3000'
+	3. Showing message of "HelloWorld bean" to WelcomeComponent
+		Create a state:
+			const [message, setMessage] = useState(null) 
+		function callHelloWorldRestApi(){
+			axios.get('http://localhost:8080/hello-world-bean')
+        			.then( (response) => successfulResponse(response) )
+        			.catch( (error) => errorResponse(error) )
+        			.finally( () => console.log("Cleanup") ) }
+		function successfulResponse(response){
+      				setMessage(response.data.message) }
+		To show message in the Browser:
+			<div className="text-info">{message}</div>
+	4. Configure API-Client URL in axios
+		const apiClient = axios.create({baseURL:'http://localhost:8080'});
+	5.  Displaying "Todos" Spring Boot REST API in React App
+		In ListTodoComponent.jsx:
+			const [todos, setTodos] = useState([])
+			useEffect(() => refereshTodos(), [])
+			function refereshTodos(){
+        			retriveAllTodosForUsername('in28minutes')
+        		    	.then(response=>{console.log(response.data)	
+        	        		setTodos(response.data)})
+				.catch(error=>console.log(error))}
+		In TodoApiService.jsx
+			import axios from 'axios'
+			const apiClient = axios.create( {baseURL:'http://localhost:8080'});
+			export const retriveAllTodosForUsername = (username) => apiClient.get(`/users/${username}/todos`)
+	6. Creating Retrieve, Delete, update Todo 
+		To RetrieveAllTodo, Delete, RetriveTodo:
+			TodoApiService
+			export const retriveAllTodosForUsername = (username) => apiClient
+				.get(`/users/${username}/todos`)
+			export const deleteTodoApi = (username, id) => apiClient
+				.delete(`/users/${username}/todos/${id}`)
+			export const retriveTododApi = (username, id) => apiClient
+				.get(`/users/${username}/todos/${id}`)
+			//this method imported in ListTodoComponent
+			Created TodoComponent
+		To update Todo:
+			TodoApiService
+			export const updateTododApi = (username, id, todo) => apiClient
+				.put(`/users/${username}/todo/${id}`, todo)
+			TodoComponent
+			function onSubmit(values){
+        			const todo ={
+            			id: id,username: username,description: values.description, 
+            				targetDate: values.targetDate, done: false}
+       				updateTododApi(username, id, todo)
+            				.then(response => {navigate('/todos')})
+                			.catch(error => console.log(error))}
+            		
+	7. Formik and Moment Libraries
+		Formik: all the form management automatically done. 
+		Moment Libraries: Date formatting libraries.
+		Installation:
+			npm install formik
+			npm install moment
+		package.json to check: 
+			"formik": "^2.4.6",
+    			"moment": "^2.30.1"
+		<Formik/>, <Form/>, <ErrorMessage/> etc tags defined in Formik.
+		TodoComponents:
+			<Formik>
+				<fieldset className="form-group">
+                                <label>Description</label>
+                                <Field type="text" className="form-control" name="description"/>
+                            </fieldset>
+                            <fieldset className="form-group">
+                                <label>Target Date</label>
+                                <Field type="date" className="form-control" name="targetDate"/>
+                            </fieldset>
+                            <div>
+                                <button className="btn btn-success m-5" type="submit">Save</button>
+                            </div>
+                        </Form>
+			</Formik>
+	8. Adding Validation to React TodoComponent using Formik
+		Adding validation in TodoComponent
+			 function validate(values){
+      	  let errors = {
+      	      //description:'Enter a valid description',
+            //targetDate: 'Enter a valid target date' }
+       	 if(values.description.length<5) {
+       	     errors.description = 'Enter atleast 5 characters'
+       	 }
+       	 if(values.targetDate == null ||  values.targetDate=='' ){
+       	     errors.targetDate='Enter a target date'
+       	 }
+       	 console.log(values)
+       	 return errors}
+
+	Adding validateOnChange, validateOnBlur in <formik> tab:
+	<Formik initialValues={{description, targetDate}} enableReinitialize={true} 
+                    onSubmit={onSubmit} 
+                    validate={validate}
+                    validateOnChange={false}
+                    validateOnBlur={false}
+                    >
+	9. 
