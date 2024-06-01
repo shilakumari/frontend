@@ -491,4 +491,217 @@ SECTION 12: CONNECT SPRINGBOOT REST API WITH REACT
                     validateOnChange={false}
                     validateOnBlur={false}
                     >
-	9. 
+	9. Create Todo
+		TodoApiService.jsx Component
+			export const createTododApi = (username, todo) => apiClient
+				.post(`/users/${username}/todo`, todo)
+		ListTodoComponent.jsx
+			add a button at the bottom of table:
+			function addNewTodo(id){navigate(`/todo/-1`)}
+			<div>
+                		<button className="btn btn-success m-3" onClick={addNewTodo}>
+				Add New Todo</button> </div>
+		TodoComponent.jsx
+			Now Configured "createTododApi" of TodoApiService
+			if(id === -1){
+            			createTododApi(username, todo)
+            			.then(response => {navigate('/todos')})
+            			.catch(error => console.log(error))}
+	10. Securing Spring Boot REST API with Spring Security
+		Add Dependency:
+			<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId></dependency>
+		Configure user, password:
+			application.properties
+				spring.security.user.name=in28minutes1
+				spring.security.user.password=dummy1
+		Create a configuration class:
+			@Configuration
+			public class BasicAuthenticationSecurityConfiguration {
+				@Bean
+				public SecurityFilterChain filterChain(HttpSecurity http) 
+					throws Exception {
+					//1. this tell that all request should be authorized
+					http.authorizeHttpRequests(
+						auth -> auth.anyRequest().authenticated());
+					//2.This configured basic authentication
+					http.httpBasic(Customizer.withDefaults());
+					//3. When disable csrf, then make sure is to not have any session. Without session means "stateless rest api"
+					http.sessionManagement(
+						session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+					//4.Disable csrf
+					http.csrf().disable();
+					return http.build();}
+			}
+	11. Adding Authorization Header in React to Spring Boot REST API calls		
+		Add header:
+		export const retrieveHelloWorldPathVariable = (username) => apiClient.get(`/hello-world/path-variable/${username}`,
+    			{
+    			    headers:{
+        			   // Authentication: 'Basic aW4yOG1pbnV0ZXMxOmR1bW15MQ=='
+				}	
+        		}
+   		})
+	12. Configuring Spring Security to allow all Options Requests
+		In BasicAuthenticationSecurityConfiguration.java:
+			auth.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+	13. Basic Authentication Using "Token"
+		HelloWorldController.java
+			@GetMapping(path = "/basicauth")
+			public String basicAuthCheck() {
+				return "Success";}
+		HelloWorldApiService.jsx
+			export const executeBasicAuthentiocationService = (token) => apiClient.get(`/basicauth`, {headers:{Authorization: token} })
+		AuthContext.js
+			function login(username, password){
+        			//window.btoa for base 64 encoding
+        			const baToken = 'Basic ' + window.btoa(username + ":" + password)
+        	        	executeBasicAuthentiocationService(baToken)
+                    			.then(response => console.log(response) )
+                    			.catch(error => console.log(error) )
+                			setAuthentication(false)
+        	   	}
+		In Browser:
+			We can check authentication in base64 of username and password.
+ 			Browser-> Inspect-> Network-> Fetch/XHR-> Name-> basicauth-> Headers-> Request Headers-> Authentication
+	14. Using "async" and "await" to invoke Basic Auth API
+		await - It'll wait for the success for the specific execution.
+		AuthContext.js
+			async function login(username, password){
+        		//window.btoa for base 64 encoding
+           		const baToken = 'Basic ' + window.btoa(username + ":" + password)
+           		try{
+               			const response = await executeBasicAuthentiocationService(baToken)
+   		            if(response.status === 200){
+           		        setAuthentication(true)
+                   		setToken(baToken)
+              		     	setUsername(username)
+               		    	return true
+               		    }else{
+                   		logout()
+                   		return false}
+   		        }catch(error){
+               			logout()
+               			return false}
+        	}
+		//Set token in AuthContext.Provider
+        	<AuthContext.Provider value={{isAuthenticated, login, logout, username, token}}>
+		LoginComponent.jsx
+			async function handleSubmit(){
+        			if(await authContext.login(username, password)){
+            				navigate(`/welcome/${username}`)
+        			}else{
+            				setShowErrorMessage(true) }
+    			}
+	15. Setting Basic Auth Token into Auth Context
+		HelloWorldApiService.jsx
+			export const retrieveHelloWorldPathVariable = (username, token) => apiClient.get(`/hello-world/path-variable/${username}`,
+    				{ headers:{Authorization:token} }
+		WelcomeComponent.jsx
+			 const authContext = useAuth()
+			//used token from AuthContext
+			retrieveHelloWorldPathVariable('Shila', authContext.token)
+				.then( (response) => successfulResponse(response) )
+        			.catch( (error) => errorResponse(error) )
+				.finally( () => console.log("Cleanup") )    
+	16. Setting up Axios Interceptor to add Authorization Header
+		Seperate apiClient in new file "ApiClient.js"
+		ApiClient.js
+			import axios from 'axios'
+			export const apiClient = axios.create({baseURL:'http://localhost:8081'})	
+		AuthContext.js
+			//Adding Interceptor
+	                apiClient.interceptors.request.use(
+	                    (config) => {
+        	                console.log('Intercepting and adding a token')
+        	                config.headers.Authorization = baToken
+        	                return config})
+	17. Getting Started with JWT and Spring Security
+		 https://github.com/in28minutes/master-spring-and-spring-boot/blob/main/13-full-stack/99-reuse/02-spring-security-jwt.md
+		Basic Authentication:
+			No Expiration time
+			No user details
+			Easily decoded
+		Custom Token System:
+			Custom structure
+			Possible Security flaws
+			Service Provider and Service Consumer can understand
+		JWT(Json Web Token):
+              		Open, industry standard for representing claims securely between two parties.
+			Can contains "User Details" and "Authorization"
+		Rest API resources that are exposed as part of our application 
+		and now protect them with JWT.
+		STEP 1: Add Dependency
+			<dependency>
+			 <groupId>org.springframework.boot</groupId>
+			 <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			</dependency>
+			And Configuration-Processor:
+			<dependency>
+			 <groupId>org.springframework.boot</groupId>
+			 <artifactId>spring-boot-configuration-processor</artifactId>
+			</dependency>
+		STEP 2: Copy paste code from above github link and run
+		STEP 3: POST request to http://localhost:8081/authenticate
+				In Body: 
+					{"username": "in28minutes1",
+					"password" : "dummy1"}
+			Now generated token 
+
+		STEP 4: GET request to http://localhost:8081/users/in28minutes1/todos
+				set HEADERS:
+					Authorization: Bearer TOKEN-VALUE
+	18. Integrating Spring Security JWT REST API with React Frontend
+		AuthenticationApiService.js:
+			export const executeJwtAuthentiocationService = (username,password) => 
+    				apiClient.post(`/authenticate`,{username,password})
+		Set token AuthContext.js
+
+			  async function login(username, password){
+        			try{
+            				const response = await executeJwtAuthentiocationService(username,password)
+            				if(response.status === 200){
+                				const jwtToken = 'Bearer '+ response.data.token 
+                				setAuthentication(true)
+                				setUsername(username)
+                				setToken(jwtToken)
+                				apiClient.interceptors.request
+						.use((config) => {
+                        			console.log('Intercepting and adding a token')
+                        			config.headers.Authorization = jwtToken
+                        			return config})
+			                	return true
+            				}else{
+                				logout()
+                				return false}
+				}catch(error){
+            					logout()
+            					return false}
+	19. Debugging Problems with JWT Auth and Spring Boot
+		Goto -> jwt.io-> debugger-> paste token	
+
+
+
+SECTION 13: Connecting Java Full Stack Application(Spring Boot & React) with JPA & Hibernate
+	1. JPA and H2 console
+		<dependency><groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId></dependency>
+		<dependency><groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId></dependency>
+		To Enabling H2-Console
+			STEP 1: JwtSecurityConfig.java add:
+				requestMatchers(PathRequest.toH2Console()).permitAll()
+			STEP 2: application.properties:
+				spring.datasource.url=jdbc:h2:mem:testdbreact
+				#data.sql execute after table created in database
+				spring.jpa.defer-datasource-initialization=true
+			STEP 3: src/main/resources
+				data.sql
+			On Browser http://localhost:8081/h2-console/
+	2.  Full Stack React & Spring Boot with JPA & Hibernate - Connect MySql
+		Changes to MySQL Connector
+			https://blogs.oracle.com/mysql/post/mysql-connectorj-has-new-maven-coordinates
+		https://github.com/in28minutes/master-spring-and-spring-boot/tree/main/13-full-stack/02-rest-api
+
+
